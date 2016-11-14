@@ -15,7 +15,9 @@ NodeJS로 Google Analytics에 연결하여 데이터를 조회하는 기본 코�
 
 ###2. 키파일 변환(key.p12 to key.pem)
 아래 명령어를 통해 위에서 받은 키파일을 변환한다.
-  openssl pkcs12 -in key.p12 -nodes -nocerts > key.pem
+```
+openssl pkcs12 -in key.p12 -nodes -nocerts > key.pem
+```
 
 ###3. 계정정보 입력
 SERVICE_ACCOUNT_EMAIL에는 위에서 생성된 서비스 계정의 아이디를, SERVICE_ACCOUNT_KEY_FILE에는 위에서 변환한 `key.pem`파일의 경로를 입력한다.
@@ -30,15 +32,16 @@ SERVICE_ACCOUNT_EMAIL에는 위에서 생성된 서비스 계정의 아이디를
 ![add permission](https://dl.dropboxusercontent.com/u/38351999/gongjam/blog/installation4.jpeg)
 
 ###5. Google Analytics Api 파라미터 세팅
-  var params = {
-    'auth': authClient,
-    'ids': 'ga:********',
-    'metrics': 'ga:sessions',
-    'start-date': '5daysAgo',
-    'end-date': 'today',
-    'dimensions': 'ga:date'
-  }
-
+```nodejs
+var params = {
+  'auth': authClient,
+  'ids': 'ga:********',
+  'metrics': 'ga:sessions',
+  'start-date': '5daysAgo',
+  'end-date': 'today',
+  'dimensions': 'ga:date'
+}
+```
 - authClient : 키파일과 얻고자하는 권한 정보가 담겨있는 객체이다. 
 - ids : Anaytics view id(한글로 보기 ID)라고 하며 `ga:` prefix와 함께 쓴다. 구글분석도구 관리페이지에서 찾을 수 있는데 처음에는 찾기 쉽지않다. 계정ID로 착각하기 쉬운데 아니다. 아래 그림을 보면,
 ![find google analytics view id #1](https://dl.dropboxusercontent.com/u/38351999/gongjam/blog/installation2.jpeg)
@@ -50,8 +53,9 @@ SERVICE_ACCOUNT_EMAIL에는 위에서 생성된 서비스 계정의 아이디를
 - start-date, end-date : 데이터 쿼리를 보낼때 날짜 범위를 설정한다. 하루 단위를 보고 싶다면 두 속성을 동일한 날짜로 설정하면 된다.
 
 ###6. 설치
-
-  $ npm start 
+```
+$ npm start 
+```
 
 ## 참고
 - [Google APIs Node.js Client](https://github.com/google/google-api-nodejs-client/)
